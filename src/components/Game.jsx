@@ -264,11 +264,7 @@ export default function Game() {
         ctx.fillStyle = "#00ff00";
         ctx.font = "20px monospace";
         ctx.textAlign = "center";
-        ctx.fillText(
-          "SYSTEM REBOOTING...",
-          width / 2,
-          height / 2 + 80
-        );
+        ctx.fillText("SYSTEM REBOOTING...", width / 2, height / 2 + 80);
       }
 
       // Draw Ground (Tech Line)
@@ -341,9 +337,11 @@ export default function Game() {
       }
 
       // Pipe Movement & Collision
+      const dynamicSpeed = currentLevel.speed + scoreRef.current * 0.2;
+
       for (let i = pipesRef.current.length - 1; i >= 0; i--) {
         const pipe = pipesRef.current[i];
-        pipe.x -= currentLevel.speed;
+        pipe.x -= dynamicSpeed;
 
         // Remove off-screen
         if (pipe.x + PIPE_WIDTH < 0) {
@@ -542,11 +540,18 @@ export default function Game() {
 
         {/* HUD */}
         {gameState === "PLAYING" && (
-          <div className="absolute top-8 left-0 right-0 flex justify-center pointer-events-none z-0">
-            <div className="text-8xl font-mono font-bold text-white/10 select-none">
-              {score}
+          <>
+            <div className="absolute top-8 left-0 right-0 flex justify-center pointer-events-none z-0">
+              <div className="text-8xl font-mono font-bold text-white/10 select-none">
+                {score}
+              </div>
             </div>
-          </div>
+            <div className="absolute bottom-6 left-0 right-0 flex justify-center pointer-events-none z-0">
+              <div className="text-xs font-mono font-bold text-green-500/60 tracking-[0.2em]">
+                SPEED: {(LEVELS[level].speed + score * 0.2).toFixed(1)}
+              </div>
+            </div>
+          </>
         )}
 
         {/* Mobile Controls Hint */}
