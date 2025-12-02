@@ -265,7 +265,7 @@ export default function Game() {
         ctx.font = "20px monospace";
         ctx.textAlign = "center";
         ctx.fillText(
-          "SYSTEM REBOOTING in 2 SEC...",
+          "SYSTEM REBOOTING...",
           width / 2,
           height / 2 + 80
         );
